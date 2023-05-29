@@ -4,7 +4,9 @@ import com.br.ciasc.models.Paciente;
 import com.br.ciasc.repository.PacienteRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@CrossOrigin
 @RestController
 @RequestMapping(value = "/ciasc")
 public class PacienteController{
@@ -34,11 +37,12 @@ public class PacienteController{
     
     @PutMapping(value = "/atualiza/{id}")
     public ResponseEntity<Paciente> atualiza(@PathVariable(value = "id") Long pacienteId, @RequestBody Paciente novo_paciente) {
-        novo_paciente.setId(novo_paciente.getId());
-        novo_paciente.setNome(novo_paciente.getNome());
-        final Paciente updatePaciente = pacienteRepository.save(novo_paciente);
-        return ResponseEntity.ok(updatePaciente);
-    }
+    Paciente pacienteExistente = pacienteRepository.findById(pacienteId)
+            .orElseThrow(() -> new ResourceNotFoundException("Paciente não encontrado com o ID: " + pacienteId));
+    pacienteExistente.setNome(novo_paciente.getNome());   
+    final Paciente updatePaciente = pacienteRepository.save(pacienteExistente);
+    return ResponseEntity.ok(updatePaciente);
+}
 
     
     @DeleteMapping("/exclui/{id}")

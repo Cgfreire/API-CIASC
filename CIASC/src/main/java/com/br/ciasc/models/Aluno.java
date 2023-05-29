@@ -19,5 +19,7 @@ public class Aluno {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
-
+    private String matricua;
+    private Integer periodo;
+    private Integer cargo;
 }
