@@ -3,9 +3,9 @@ package com.br.ciasc.controller;
 import com.br.ciasc.models.Paciente;
 import com.br.ciasc.repository.PacienteRepository;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.rest.webmvc.ResourceNotFoundException;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,21 +28,26 @@ public class PacienteController{
     public List<Paciente> lista_pacientes(){
         return pacienteRepository.findAll();
         }
-
-
+    
+    @GetMapping(value = "/pacientes/{id}")
+    public Paciente obterPacientePorId(@PathVariable("id") Long id) {
+    Optional<Paciente> pacienteOptional = pacienteRepository.findById(id);
+    return pacienteOptional.get();
+    }
+    
     @PostMapping(value = "/cadastro")
     public Paciente cadastrar(@RequestBody Paciente paciente){
         return pacienteRepository.save(paciente);
     }
     
     @PutMapping(value = "/atualiza/{id}")
-    public ResponseEntity<Paciente> atualiza(@PathVariable(value = "id") Long pacienteId, @RequestBody Paciente novo_paciente) {
-    Paciente pacienteExistente = pacienteRepository.findById(pacienteId)
-            .orElseThrow(() -> new ResourceNotFoundException("Paciente não encontrado com o ID: " + pacienteId));
-    pacienteExistente.setNome(novo_paciente.getNome());   
-    final Paciente updatePaciente = pacienteRepository.save(pacienteExistente);
-    return ResponseEntity.ok(updatePaciente);
-}
+    public Paciente atualiza(@PathVariable(value = "id") Long pacienteId, @RequestBody Paciente novo_paciente) {
+        Paciente pacienteExistente = pacienteRepository.findById(pacienteId)
+            .orElseThrow(() -> new RuntimeException ("Aluno não encontrado com o ID: " + pacienteId));
+    
+        pacienteExistente.setNome(novo_paciente.getNome());
+        return pacienteRepository.save(pacienteExistente);
+    }
 
     
     @DeleteMapping("/exclui/{id}")

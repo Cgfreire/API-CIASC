@@ -16,12 +16,11 @@ public class CiascApplication {
 	@Bean
 	public OpenAPI customOpenAPI() {
 		return new OpenAPI()
-				.info(new Info()
-						.title("Ciasc API")
-						.version("0.1")
-						.description("API desenvolvida para o Centro Integrado de Atenção à Comunidade")
-						.termsOfService("http://swagger.io/terms/")
-						.license(new License().name("Apache 2.0").url("http://springdoc.org")));
-
+                    .info(new Info()
+                    .title("Ciasc API")
+                    .version("0.1")
+                    .description("API desenvolvida para o Centro Integrado de Atenção à Comunidade")
+                    .termsOfService("http://swagger.io/terms/")
+                    .license(new License().name("Apache 2.0").url("http://springdoc.org")));
 	}
 }
