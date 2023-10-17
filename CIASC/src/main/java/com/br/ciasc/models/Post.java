@@ -14,14 +14,14 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Paciente {
+public class Post {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String nome;
-    private Integer idade;
-    private String cpf;
-    private String telefone;
-    private String especialidade;
+    private String Nome;
+    private String categoria;
+    private String titulo;
+    private String descricao;
+    private String conteudo;
 }

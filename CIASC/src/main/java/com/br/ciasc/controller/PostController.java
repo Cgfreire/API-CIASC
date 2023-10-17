@@ -1,7 +1,6 @@
 package com.br.ciasc.controller;
 
-import com.br.ciasc.models.Paciente;
-import com.br.ciasc.repository.PacienteRepository;
+import com.br.ciasc.models.Post;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,45 +14,46 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import com.br.ciasc.repository.PostRepository;
 
 @CrossOrigin
 @RestController
 @RequestMapping(value = "/ciasc")
-public class PacienteController{
+public class PostController{
 
     @Autowired
-    PacienteRepository pacienteRepository;
+    PostRepository postRepository;
 
     @GetMapping(value = "/pacientes")
-    public List<Paciente> lista_pacientes(){
-        return pacienteRepository.findAll();
+    public List<Post> lista_pacientes(){
+        return postRepository.findAll();
         }
     
     @GetMapping(value = "/pacientes/{id}")
-    public Paciente obterPacientePorId(@PathVariable("id") Long id) {
-    Optional<Paciente> pacienteOptional = pacienteRepository.findById(id);
+    public Post obterPacientePorId(@PathVariable("id") Long id) {
+    Optional<Post> pacienteOptional = postRepository.findById(id);
     return pacienteOptional.get();
     }
     
     @PostMapping(value = "/cadastro")
-    public Paciente cadastrar(@RequestBody Paciente paciente){
-        return pacienteRepository.save(paciente);
+    public Post cadastrar(@RequestBody Post paciente){
+        return postRepository.save(paciente);
     }
     
     @PutMapping(value = "/atualiza/{id}")
-    public Paciente atualiza(@PathVariable(value = "id") Long pacienteId, @RequestBody Paciente novo_paciente) {
-        Paciente pacienteExistente = pacienteRepository.findById(pacienteId)
-            .orElseThrow(() -> new RuntimeException ("Aluno não encontrado com o ID: " + pacienteId));
+    public Post atualiza(@PathVariable(value = "id") Long pacienteId, @RequestBody Post novo_paciente) {
+        Post pacienteExistente = postRepository.findById(pacienteId)
+            .orElseThrow(() -> new RuntimeException ("Aluno não encontrado com o ID: "));
     
         pacienteExistente.setNome(novo_paciente.getNome());
-        return pacienteRepository.save(pacienteExistente);
+        return postRepository.save(pacienteExistente);
     }
 
     
     @DeleteMapping("/exclui/{id}")
     public String exclui(@PathVariable("id") Long id) {
         if (id != null) {
-            pacienteRepository.deleteById(id);
+            postRepository.deleteById(id);
         return "Excluído";
             }
     return null;

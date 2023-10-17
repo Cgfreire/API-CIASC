@@ -1,10 +1,10 @@
 package com.br.ciasc.repository;
 
 import org.springframework.stereotype.Repository;
-import com.br.ciasc.models.Paciente;
+import com.br.ciasc.models.Post;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 @Repository
-public interface PacienteRepository extends JpaRepository<Paciente, Long>{
+public interface PostRepository extends JpaRepository<Post, Long>{
     
 }
