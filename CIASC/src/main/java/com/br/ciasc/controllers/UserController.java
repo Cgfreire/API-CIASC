@@ -1,7 +1,8 @@
-package com.br.ciasc.controller;
+package com.br.ciasc.controllers;
 
-import com.br.ciasc.models.User;
-import com.br.ciasc.repository.UserRepository;
+import com.br.ciasc.models.UserModel;
+import com.br.ciasc.repositories.UserRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,7 +18,7 @@ public class UserController {
     UserRepository userRepository;
 
     @GetMapping()
-    public List<User> listarUsers() {
+    public List<UserModel> listarUsers() {
         try {
             return userRepository.findAll();
         } catch (Exception e) {
@@ -27,9 +28,9 @@ public class UserController {
     }
 
     @GetMapping(value = "/{userId}")
-    public User obterUserPorId(@PathVariable("userId") Long userId) {
+    public UserModel obterUserPorId(@PathVariable("userId") Long userId) {
         try {
-            Optional<User> userOptional = userRepository.findById(userId);
+            Optional<UserModel> userOptional = userRepository.findById(userId);
             return userOptional.orElse(null);
         } catch (Exception e) {
             e.printStackTrace();
@@ -38,7 +39,7 @@ public class UserController {
     }
 
     @PostMapping()
-    public User cadastrarUser(@RequestBody User user) {
+    public UserModel cadastrarUser(@RequestBody UserModel user) {
         try {
             return userRepository.save(user);
         } catch (Exception e) {
@@ -48,9 +49,9 @@ public class UserController {
     }
 
     @PutMapping(value = "/{userId}")
-    public User atualizarUser(@PathVariable("userId") Long userId, @RequestBody User novoUser) {
+    public UserModel atualizarUser(@PathVariable("userId") Long userId, @RequestBody UserModel novoUser) {
         try {
-            User userExistente = userRepository.findById(userId)
+            UserModel userExistente = userRepository.findById(userId)
                     .orElseThrow(() -> new RuntimeException("Usuário não encontrado com o ID: " + userId));
             userExistente.setNome(novoUser.getNome());
             return userRepository.save(userExistente);

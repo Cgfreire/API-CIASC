@@ -70,7 +70,13 @@
 			<artifactId>jjwt-jackson</artifactId>
 			<version>0.11.5</version>
 		</dependency>
-	</dependencies>
+	
+   <dependency>
+     <groupId>net.creationreborn</groupId>
+     <artifactId>crapi-api</artifactId>
+     <version>2.4.1</version>
+   </dependency>
+ </dependencies>
 
 	<build>
 		<plugins>

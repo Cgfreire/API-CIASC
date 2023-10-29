@@ -19,17 +19,18 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 @NoArgsConstructor
 @Entity
 @Table(name = "posts")
-public class Post {
+public class PostModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String nome;
-    private String categoria;
+    private String urlDaImg;
+    private String autor;
     private String titulo;
     private String descricao;
     private String conteudo;
+    private String categoria;
 
     @JsonBackReference
     @ManyToOne
-    private User user;
+    private UserModel user;
 }

@@ -6,9 +6,9 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.br.ciasc.models.User;
-import com.br.ciasc.repository.UserRepository;
-import com.br.ciasc.util.JWTUtil;
+import com.br.ciasc.models.UserModel;
+import com.br.ciasc.repositories.UserRepository;
+import com.br.ciasc.utils.JWTUtil;
 
 @Service
 public class AuthService {
@@ -19,7 +19,7 @@ public class AuthService {
     private JWTUtil jwtUtil;
 
     public String autenticarUsuario(String email, String senha) {
-        User user = userRepository.findByEmail(email);
+        UserModel user = userRepository.findByEmail(email);
 
         if (user != null && user.getSenha().equals(senha)) {
             Map<String, Object> claims = new HashMap<>();

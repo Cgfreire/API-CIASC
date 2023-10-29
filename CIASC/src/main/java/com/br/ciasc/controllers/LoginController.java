@@ -1,4 +1,4 @@
-package com.br.ciasc.controller;
+package com.br.ciasc.controllers;
 
 import com.br.ciasc.services.AuthService;
 import io.swagger.v3.oas.annotations.Operation;
