@@ -1,6 +1,5 @@
 package com.br.ciasc.Filters;
 
-import com.br.ciasc.util.JWTUtil;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
@@ -12,6 +11,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import com.br.ciasc.utils.JWTUtil;
 
 @Component
 public class AuthFilter implements Filter {

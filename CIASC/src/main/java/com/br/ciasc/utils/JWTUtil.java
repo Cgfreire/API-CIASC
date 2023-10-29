@@ -1,4 +1,4 @@
-package com.br.ciasc.util;
+package com.br.ciasc.utils;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
